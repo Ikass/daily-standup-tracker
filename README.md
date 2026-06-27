@@ -1,24 +1,84 @@
-# README
+# Standup App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Daily standup tracking application with multi-tenant account support.
 
-Things you may want to cover:
+## Tech Stack
 
-* Ruby version
+- **Ruby** 3.4.8, **Rails** 8.1, **PostgreSQL**
+- **Hotwire** (Turbo + Stimulus), **Importmap**
+- **Bulma** CSS
+- **RSpec**, **FactoryBot**, **Capybara**, **SimpleCov**
 
-* System dependencies
+## Setup
 
-* Configuration
+```bash
+bundle install
+bin/rails db:setup
+bin/dev
+```
 
-* Database creation
+Open http://localhost:3000.
 
-* Database initialization
+## Testing
 
-* How to run the test suite
+```bash
+bundle exec rspec
+bundle exec rspec spec/models/
+bundle exec rspec spec/requests/
+bundle exec rspec spec/system/
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Routes
 
-* Deployment instructions
+| Path | Purpose |
+|------|---------|
+| `/` | Activity feed (root) |
+| `/session/new` | Log in |
+| `/registrations/new` | Sign up |
+| `/passwords/new` | Forgot password |
+| `/activity/mine` | My activity |
+| `/activity/feed` | Activity feed |
+| `/support` | Support page |
+| `/up` | Health check |
+| `/rails/info/routes` | Routes overview (dev only) |
 
-* ...
+## Features
+
+- **Authentication** — Email/password via bcrypt, cookie-based sessions
+- **Registration** — Sign-up with auto-created account
+- **Password reset** — Email-based reset (letter_opener in dev)
+- **Activity pages** — Track and view daily activity
+- **Multi-tenant** — Account has owner + members (User/Account model)
+- **Authorization** — Pundit (ready for policies)
+- **Role management** — Rolify (ready for roles)
+- **Background jobs** — Solid Queue
+- **Caching** — Solid Cache
+- **Real-time** — Action Cable via Solid Cable
+
+## Database
+
+Three main tables: `users`, `accounts`, `sessions`.  
+Accounts are the tenant — users belong to an account, and each account has an owner.
+
+```
+User (1) ---< (N) Session
+User (N) >--- (1) Account   (optional for User)
+Account (1) ---< (N) User
+```
+
+## Key Dependencies
+
+- `bcrypt` — Password hashing
+- `pundit` — Authorization policies
+- `rolify` — Role management
+- `local_time` — Client-side time rendering
+- `prefixed_ids` — Prefixed record IDs (e.g., `u_abc123`)
+- `solid_cache`, `solid_queue`, `solid_cable` — Rails Solid stack
+- `kamal` — Docker deployment
+
+## Deployment
+
+```bash
+docker build -t standup_app .
+kamal deploy
+```

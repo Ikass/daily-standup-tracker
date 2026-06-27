@@ -7,6 +7,7 @@ class RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.account = Account.new(account_params.merge(user: @user))
     if @user.save
       start_new_session_for @user
       redirect_to root_path, notice: "Registration successful."
@@ -19,5 +20,9 @@ class RegistrationsController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email_address, :password, :password_confirmation)
+  end
+
+  def account_params
+    params.require(:account).permit(:name)
   end
 end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
+  resources :registrations, only: %i[ new create ]
 
   get "support", to: "support#show"
 

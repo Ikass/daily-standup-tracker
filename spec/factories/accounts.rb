@@ -1,13 +1,9 @@
 FactoryBot.define do
   factory :account do
-    name { "MyString" }
-    addr1 { "MyString" }
-    addr2 { "MyString" }
-    city { "MyString" }
-    state { "MyString" }
-    zip { "MyString" }
-    country { "MyString" }
-    settings { "" }
-    user { nil }
+    name { "Test Account" }
+    settings { {} }
+    after(:build) do |account|
+      account.user ||= FactoryBot.build(:user, account: account)
+    end
   end
 end

@@ -9,6 +9,23 @@
 <h1 class="title">Sign up</h1>
 
 <%= form_with model: @user, url: registrations_url do |form| %>
+  <% if @user.errors.any? %>
+    <div class="notification is-danger is-light">
+      <% @user.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= fields_for(Account.new) do |a| %>
+    <div class="field">
+      <%= a.label :name, "Account name", class: "label" %>
+      <div class="control">
+        <%= a.text_field :name, autofocus: true, autocomplete: "company-name", placeholder: "Enter name for your account", value: params[:name], class: "input" %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= form.label :name, class: "label" %>
     <div class="control">

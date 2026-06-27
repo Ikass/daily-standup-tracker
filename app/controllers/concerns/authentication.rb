@@ -2,8 +2,11 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
+    before_action :resume_session
     before_action :require_authentication
     helper_method :authenticated?
+    helper_method :current_user
+    helper_method :current_account
   end
 
   class_methods do
@@ -13,12 +16,20 @@ module Authentication
   end
 
   private
+    def current_user
+      Current.user
+    end
+
+    def current_account
+      Current.account
+    end
+
     def authenticated?
-      resume_session
+      Current.session.present?
     end
 
     def require_authentication
-      resume_session || request_authentication
+      redirect_to new_session_path unless authenticated?
     end
 
     def resume_session
