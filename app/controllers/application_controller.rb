@@ -5,4 +5,15 @@ class ApplicationController < ActionController::Base
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+
+  layout :layout_by_resource
+
+  protected
+  def layout_by_resource
+    if controller_name.in?(%w[registrations sessions passwords invitations])
+      "auth"
+    else
+      "application"
+    end
+  end
 end

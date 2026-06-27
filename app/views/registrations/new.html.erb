@@ -1,0 +1,48 @@
+<% if alert = flash[:alert] %>
+  <div class="notification is-danger is-light"><%= alert %></div>
+<% end %>
+
+<% if notice = flash[:notice] %>
+  <div class="notification is-success is-light"><%= notice %></div>
+<% end %>
+
+<h1 class="title">Sign up</h1>
+
+<%= form_with model: @user, url: registrations_url do |form| %>
+  <div class="field">
+    <%= form.label :name, class: "label" %>
+    <div class="control">
+      <%= form.text_field :name, autofocus: true, autocomplete: "first-name", placeholder: "Enter your first name", value: params[:name], class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :email_address, class: "label" %>
+    <div class="control">
+      <%= form.email_field :email_address, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :password, class: "label" %>
+    <div class="control">
+      <%= form.password_field :password, autocomplete: "new-password", placeholder: "Enter your password", maxlength: 72, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation, class: "label" %>
+    <div class="control">
+      <%= form.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm your password", maxlength: 72, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <%= form.submit "Sign up", class: "button is-primary" %>
+    </div>
+    <div class="control">
+      <%= link_to "Sign in", new_session_path, class: "button is-text" %>
+    </div>
+  </div>
+<% end %>
