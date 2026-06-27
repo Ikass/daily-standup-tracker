@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="has-navbar-fixed-top">
   <head>
     <title><%= content_for(:title) || "Standup App" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,14 +18,21 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "bulma", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+    <%= render "layouts/components/header" %>
+    <div class="columns is-gapless">
+      <%= render "layouts/components/sidebar" %>
+      <main class="column">
+        <section class="section">
+          <%= yield %>
+        </section>
+      </main>
+    </div>
+    <%= render "layouts/components/footer" %>
   </body>
 </html>

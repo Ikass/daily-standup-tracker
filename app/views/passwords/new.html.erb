@@ -1,0 +1,24 @@
+<div class="columns is-centered">
+  <div class="column is-half">
+    <% if alert = flash[:alert] %>
+      <div class="notification is-danger is-light"><%= alert %></div>
+    <% end %>
+
+    <h1 class="title">Forgot your password?</h1>
+
+    <%= form_with url: passwords_path do |form| %>
+      <div class="field">
+        <%= form.label :email_address, class: "label" %>
+        <div class="control">
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "input" %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= form.submit "Email reset instructions", class: "button is-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
