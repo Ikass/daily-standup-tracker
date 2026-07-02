@@ -2,6 +2,8 @@
 
 Daily standup tracking application with multi-tenant account support.
 
+Built as a learning project while working through [*Build a SaaS App in Rails*](https://buildasaasappinrails.com/), part of a 12-week job-readiness track. For context and sprint plans, see the [productivity system](#related-docs).
+
 ## Tech Stack
 
 - **Ruby** 3.4.8, **Rails** 8.1, **PostgreSQL**
@@ -82,3 +84,14 @@ Account (1) ---< (N) User
 docker build -t standup_app .
 kamal deploy
 ```
+
+## Related Docs
+
+Sprint plans, milestones, and learning reflections live in the Obsidian vault:
+
+| File | Purpose |
+|------|---------|
+| `01.Projects/Rails/build-saas-app-rails/_milestones.md` | Chapter-by-chapter milestones |
+| `01.Projects/Rails/build-saas-app-rails/_priorities.md` | Weekly sprint plan |
+| `01.Projects/Tech-Job/job-ready-plan.md` | 12-week track overview |
+| `01.Projects/Tech-Job/_priorities.md` | Cross-project weekly priorities |
